@@ -204,7 +204,7 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
 
 <!-- ===== SOMBRERO: PRESENTACIÓN ===== -->
 <section class="escena" id="e-sombrero">
-  <img class="sombrero-img" src="media/sombrero.png" alt="El Sombrero Seleccionador">
+  <img class="sombrero-img" src="sombrero.png" alt="El Sombrero Seleccionador">
   <div class="bocadillo">
     <p>Vaya, vaya… otra que se casa.</p>
     <p>Siéntate, Jenny. Antes de empezar esta travesía tengo que decidir a qué casa perteneces: <b>Gryffindor</b>, <b>Slytherin</b>, <b>Ravenclaw</b> o <b>Hufflepuff</b>. Cuatro preguntas y lo sabré.</p>
@@ -215,7 +215,7 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
 
 <!-- ===== PREGUNTAS ===== -->
 <section class="escena" id="e-pregunta">
-  <img class="sombrero-img" style="width:min(38vw,140px)" src="media/sombrero.png" alt="">
+  <img class="sombrero-img" style="width:min(38vw,140px)" src="sombrero.png" alt="">
   <div class="pregunta">
     <p class="contador" id="contador"></p>
     <p class="enunciado" id="enunciado"></p>
@@ -225,7 +225,7 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
 
 <!-- ===== DELIBERACIÓN ===== -->
 <section class="escena" id="e-pensando">
-  <img class="sombrero-img" src="media/sombrero.png" alt="">
+  <img class="sombrero-img" src="sombrero.png" alt="">
   <div class="bocadillo"><p id="murmullo">Mmm… interesante. Muy interesante.</p></div>
   <div class="puntos" aria-hidden="true"><i></i><i></i><i></i></div>
 </section>
@@ -238,11 +238,11 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
   </div>
   <video class="retrato" id="jenny" autoplay muted loop playsinline
-         poster="media/jenny.jpg" aria-label="Jenny con la túnica y la bufanda de Gryffindor">
-    <source src="media/jenny.webm" type="video/webm">
-    <source src="media/jenny.mp4" type="video/mp4">
+         poster="jenny.jpg" aria-label="Jenny con la túnica y la bufanda de Gryffindor">
+    <source src="jenny.webm" type="video/webm">
+    <source src="jenny.mp4" type="video/mp4">
   </video>
-  <img class="retrato" id="jenny-foto" src="media/jenny.jpg" hidden
+  <img class="retrato" id="jenny-foto" src="jenny.jpg" hidden
        alt="Jenny con la túnica y la bufanda de Gryffindor">
   <p class="tenue" style="max-width:30rem">Valor, descaro y una capacidad preocupante para arrastrar a otras a los líos. No había duda.</p>
   <button class="boton" onclick="ir('e-mapa')">Comenzar la travesía</button>
@@ -339,7 +339,7 @@ function siguiente() {
 
 /* ---------- capítulos ---------- */
 const CAPS = [
-  { num: 'Capítulo I', dia: 'Viernes 14', abre: new Date(2026,7,14,9,0,0), icono: 'media/cerveza.png', fondo: 'media/callejon.jpg',
+  { num: 'Capítulo I', dia: 'Viernes 14', abre: new Date(2026,7,14,9,0,0), icono: 'cerveza.png', fondo: 'callejon.jpg',
     tit: 'El Callejón Diagon y Noche de Pociones',
     epi: 'Día de llegada &amp; embrujo nocturno',
     hechizo: { nombre:'Alohomora', tipo:'Encantamiento de apertura',
@@ -352,11 +352,11 @@ const CAPS = [
             ['15:00','Brindis de bienvenida'],
             ['19:00','Fiestas de Portugalete: tardeo, pinchos y noche']],
     nota: 'De camino: el Puente de Vizcaya, que se cruza por arriba en ascensor, y parada en Rialia, el Museo de la Industria, donde hay conciertos y fiestas.',
-    retos: [['Misión para Jenny','Al entrar en la primera taberna luciendo su sombrero de bruja, debe pronunciar firmemente el hechizo «¡Alohomora!» apuntando con su varita al barman para que sirva la primera ronda.','media/cerveza.png'],
+    retos: [['Misión para Jenny','Al entrar en la primera taberna luciendo su sombrero de bruja, debe pronunciar firmemente el hechizo «¡Alohomora!» apuntando con su varita al barman para que sirva la primera ronda.','cerveza.png'],
             ['Reto de la Casa Gryffindor','Conseguir que el Encantador de Música o el encargado del local le dedique una canción especial a la gran bruja Jenny antes de que expire la medianoche.',null]],
     cita: '«Un mago no llega tarde, ni pronto; llega exactamente cuando se lo propone.»' },
 
-  { num: 'Capítulo II', dia: 'Sábado 15', abre: new Date(2026,7,15,9,0,0), icono: 'media/snitch.png', fondo: 'media/partido.jpg',
+  { num: 'Capítulo II', dia: 'Sábado 15', abre: new Date(2026,7,15,9,0,0), icono: 'snitch.png', fondo: 'partido.jpg',
     tit: 'El Festín Real y el Tardeo Mágico',
     epi: 'Día central del torneo',
     hechizo: { nombre:'Wingardium Leviosa', tipo:'Encantamiento de levitación',
@@ -368,11 +368,11 @@ const CAPS = [
             ['14:00','Almuerzo en las tascas de Isozaki'],
             ['18:00','Tardeo y pintxos en Bilbao']],
     nota: 'De las tascas se sale al Zubizuri y en diez minutos de paseo por la ría se planta una en el Guggenheim.',
-    retos: [['Ritual mágico','Imposición oficial a Jenny de su Sombrero de Bruja de la Casa Gryffindor y firma del Pergamino del Buen Deseo por todas las asistentes.','media/snitch.png'],
+    retos: [['Ritual mágico','Imposición oficial a Jenny de su Sombrero de Bruja de la Casa Gryffindor y firma del Pergamino del Buen Deseo por todas las asistentes.','snitch.png'],
             ['Juego: verdad o hechizo','Jenny responderá a preguntas comprometidas sobre su prometido. Por cada fallo, deberá cumplir un reto impuesto por el Sombrero Seleccionador, es decir, por sus amigas.',null]],
     cita: '«Son nuestras elecciones las que muestran lo que somos, mucho más que nuestras capacidades.»' },
 
-  { num: 'Capítulo III', dia: 'Domingo 16', abre: new Date(2026,7,16,9,0,0), icono: 'media/escoba.png', fondo: 'media/agua.jpg',
+  { num: 'Capítulo III', dia: 'Domingo 16', abre: new Date(2026,7,16,9,0,0), icono: 'escoba.png', fondo: 'agua.jpg',
     tit: 'La Expedición al Lago Negro',
     epi: 'Viaje de aventura &amp; brisa marina',
     hechizo: { nombre:'Aguamenti', tipo:'Encantamiento de agua',
@@ -385,11 +385,11 @@ const CAPS = [
             ['Tarde','Playa de La Concha: baño, sol y bahía'],
             ['19:30','Autobús de vuelta'], ['20:50','Llegada a Bilbao']],
     nota: 'De propina: andando desde La Concha se llega al Peine del Viento. Con marea alta el mar sale disparado por los agujeros del suelo.',
-    retos: [['Misión playera','El grupo deberá esculpir en la arena una criatura mágica o un castillo gigante y posar alrededor junto a la novia y su sombrero para la foto oficial.','media/escoba.png'],
+    retos: [['Misión playera','El grupo deberá esculpir en la arena una criatura mágica o un castillo gigante y posar alrededor junto a la novia y su sombrero para la foto oficial.','escoba.png'],
             ['Ración mágica en la Parte Vieja','Ruta de manjares y delicias marinas para reponer fuerzas tras la inmersión. Ojo: el Txepetxa cierra los domingos; La Cuchara de San Telmo sí abre.',null]],
     cita: '«La felicidad se puede hallar hasta en los más oscuros momentos, si somos capaces de usar bien la luz.»' },
 
-  { num: 'Capítulo IV', dia: 'Lunes 17', abre: new Date(2026,7,17,9,0,0), icono: 'media/lechuza.png', fondo: 'media/comida.jpg',
+  { num: 'Capítulo IV', dia: 'Lunes 17', abre: new Date(2026,7,17,9,0,0), icono: 'lechuza.png', fondo: 'comida.jpg',
     tit: 'El Banquete del Vínculo Matrimonial',
     epi: 'Cierre épico &amp; brindis final',
     hechizo: { nombre:'Expecto Patronum', tipo:'Encantamiento de protección',
@@ -401,7 +401,7 @@ const CAPS = [
             ['14:00','Comida de clausura'], ['19:00','Camino al aeropuerto'],
             ['21:10','Vuelo a Las Palmas'], ['23:35','Llegada']],
     nota: '',
-    retos: [['El juramento inviolable','Antes del postre, cada bruja del escuadrón dedicará unas palabras, un deseo o una promesa de lealtad a Jenny para su nueva vida de casada.','media/lechuza.png']],
+    retos: [['El juramento inviolable','Antes del postre, cada bruja del escuadrón dedicará unas palabras, un deseo o una promesa de lealtad a Jenny para su nueva vida de casada.','lechuza.png']],
     cita: '¡Que la magia os acompañe siempre!' }
 ];
 
@@ -503,7 +503,7 @@ function abrirPrueba(i) {
 function pronunciar(e, boton) {
   const fin = () => boton.classList.remove('sonando');
   boton.classList.add('sonando');
-  const ruta = 'media/hechizos/' + e.nombre.toLowerCase().replace(/ /g, '-') + '.mp3';
+  const ruta = 'hechizos/' + e.nombre.toLowerCase().replace(/ /g, '-') + '.mp3';
   const a = new Audio(ruta);
   a.onended = fin;
   a.onerror = () => { vozDelSistema(e.nombre, fin); };
