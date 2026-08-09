@@ -1,0 +1,11 @@
+Audios de los conjuros (opcional)
+=================================
+Si dejas aquí un mp3 con estos nombres exactos, el botón "Escuchar el conjuro"
+reproducirá tu grabación en lugar de la voz automática del móvil:
+
+  alohomora.mp3
+  wingardium-leviosa.mp3
+  aguamenti.mp3
+  expecto-patronum.mp3
+
+Si el archivo no está, no pasa nada: el botón usa la voz del propio dispositivo.

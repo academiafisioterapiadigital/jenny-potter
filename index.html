@@ -1,0 +1,555 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jenny Potter y el Colocón Filosofal</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:root{
+  --noche:#0C1020; --morado:#191634; --oro:#D9B45A; --oro2:#F0D79A;
+  --granate:#7F1120; --granate2:#A8202F; --pergamino:#F3E7CC; --tinta:#2B2118;
+  --display:"Cinzel Decorative",Georgia,serif;
+  --caps:"Cinzel",Georgia,serif;
+  --body:"EB Garamond",Georgia,serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--noche);color:var(--pergamino);font-family:var(--body)}
+body{min-height:100dvh;overflow-x:hidden}
+
+/* cielo */
+.cielo{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% -20%,#332B62 0%,transparent 55%),
+    radial-gradient(ellipse at 10% 100%,#221B45 0%,transparent 45%),
+    radial-gradient(ellipse at 90% 80%,#2A1B33 0%,transparent 40%)}
+.estrellas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+.estrellas span{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--oro2);
+  animation:titila 3.6s ease-in-out infinite}
+@keyframes titila{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.9;transform:scale(1.25)}}
+
+.escena{position:relative;z-index:1;min-height:100dvh;display:none;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:34px 22px 40px;text-align:center;animation:entra .55s ease both}
+.escena.activa{display:flex}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.escena,.estrellas span{animation:none}}
+
+h1{font-family:var(--display);font-size:clamp(28px,8vw,42px);line-height:1.14;margin:0;
+  color:var(--oro2);text-shadow:0 0 26px rgba(217,180,90,.35)}
+h2{font-family:var(--display);font-size:clamp(22px,6vw,30px);margin:0 0 10px;color:var(--oro2)}
+.epigrafe{font-family:var(--caps);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--oro);opacity:.85;margin:0 0 14px}
+p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
+.tenue{opacity:.75;font-size:15.5px}
+
+.boton{font-family:var(--caps);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+  background:linear-gradient(180deg,var(--granate2),var(--granate));color:#F7E9C6;
+  border:1px solid var(--oro);border-radius:999px;padding:15px 30px;cursor:pointer;
+  box-shadow:0 8px 26px rgba(0,0,0,.45);transition:transform .16s ease,box-shadow .16s ease}
+.boton:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(168,32,47,.4)}
+.boton:active{transform:translateY(0)}
+.boton:focus-visible{outline:2px solid var(--oro2);outline-offset:4px}
+.boton--fantasma{background:transparent;color:var(--oro2);box-shadow:none}
+
+/* sombrero */
+.sombrero-img{width:min(62vw,240px);filter:drop-shadow(0 18px 34px rgba(0,0,0,.6));
+  animation:flota 4.5s ease-in-out infinite}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-12px) rotate(1.5deg)}}
+.bocadillo{background:rgba(243,231,204,.96);color:var(--tinta);border-radius:16px;
+  padding:18px 20px;max-width:34rem;margin:22px 0 0;position:relative;
+  box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.bocadillo::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  border:11px solid transparent;border-bottom-color:rgba(243,231,204,.96);border-top:0}
+.bocadillo p{margin:0;font-size:17px;font-style:italic}
+.bocadillo p + p{margin-top:10px}
+
+/* preguntas */
+.pregunta{width:100%;max-width:34rem}
+.contador{font-family:var(--caps);font-size:11px;letter-spacing:.22em;color:var(--oro);
+  opacity:.8;margin-bottom:10px}
+.enunciado{font-family:var(--display);font-size:clamp(19px,5.2vw,25px);line-height:1.3;
+  color:var(--oro2);margin:0 0 20px}
+.opciones{display:flex;flex-direction:column;gap:11px}
+.opcion{font-family:var(--body);font-size:16.5px;line-height:1.4;text-align:left;
+  background:rgba(243,231,204,.07);color:var(--pergamino);border:1px solid rgba(217,180,90,.42);
+  border-radius:13px;padding:15px 17px;cursor:pointer;transition:all .16s ease}
+.opcion:hover{background:rgba(217,180,90,.16);border-color:var(--oro)}
+.opcion:focus-visible{outline:2px solid var(--oro2);outline-offset:3px}
+.opcion.elegida{background:rgba(168,32,47,.35);border-color:var(--oro2)}
+
+/* deliberacion */
+.puntos{display:flex;gap:9px;margin-top:22px}
+.puntos i{width:9px;height:9px;border-radius:50%;background:var(--oro);opacity:.3;
+  animation:pulso 1.3s ease-in-out infinite}
+.puntos i:nth-child(2){animation-delay:.18s}
+.puntos i:nth-child(3){animation-delay:.36s}
+@keyframes pulso{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)}}
+
+/* resultado */
+.veredicto{font-family:var(--display);font-size:clamp(40px,13vw,74px);color:var(--oro2);
+  margin:6px 0 4px;letter-spacing:.02em;text-shadow:0 0 40px rgba(217,180,90,.55);
+  animation:golpe .7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes golpe{0%{opacity:0;transform:scale(.5)}60%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+.retrato{width:min(78vw,320px);border:2px solid var(--oro);border-radius:6px;margin:22px 0 6px;
+  box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.ornamento{width:min(72vw,270px);color:var(--oro);margin:24px 0 4px;
+  filter:drop-shadow(0 0 12px rgba(217,180,90,.35))}
+.bufanda{display:flex;gap:0;border-radius:999px;overflow:hidden;width:min(70vw,260px);height:9px;
+  margin:0 0 18px}
+.bufanda i{flex:1;height:100%}
+.bufanda i:nth-child(odd){background:var(--granate)}
+.bufanda i:nth-child(even){background:var(--oro)}
+
+/* mapa de capitulos */
+.mapa{width:100%;max-width:36rem}
+.tarjeta{display:flex;gap:14px;align-items:center;text-align:left;width:100%;
+  background:rgba(243,231,204,.07);border:1px solid rgba(217,180,90,.4);border-radius:16px;
+  padding:15px 16px;margin-bottom:12px;cursor:pointer;transition:all .18s ease;
+  color:var(--pergamino);font-family:var(--body)}
+.tarjeta:hover{background:rgba(217,180,90,.15)}
+.tarjeta:focus-visible{outline:2px solid var(--oro2);outline-offset:3px}
+.tarjeta img{width:52px;height:52px;object-fit:contain;flex:0 0 auto}
+.tarjeta .info{flex:1}
+.tarjeta .num{font-family:var(--caps);font-size:10.5px;letter-spacing:.2em;color:var(--oro);
+  text-transform:uppercase}
+.tarjeta .tit{font-family:var(--display);font-size:17px;line-height:1.2;color:var(--oro2);margin:3px 0}
+.tarjeta .dia{font-size:14px;opacity:.72}
+.candado{font-size:19px;opacity:.55}
+.tarjeta.bloqueada{opacity:.62}
+.tarjeta .cuenta{font-family:var(--caps);font-size:13px;color:var(--oro2);letter-spacing:.04em}
+.tarjeta.niega{animation:niega .45s ease}
+@keyframes niega{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}
+  45%{transform:translateX(6px)}70%{transform:translateX(-4px)}}
+.aviso{min-height:22px;font-size:15px;color:var(--oro2);opacity:0;transition:opacity .3s ease;
+  margin:4px 0 0}
+.aviso.visible{opacity:.9}
+
+/* prueba de magia */
+.prueba{width:100%;max-width:34rem}
+.prueba .sello{font-family:var(--caps);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--oro);opacity:.85;margin-bottom:10px}
+.conjuro{font-family:var(--display);font-size:clamp(30px,9vw,46px);color:var(--oro2);margin:0;
+  line-height:1.1;text-shadow:0 0 30px rgba(217,180,90,.4)}
+.tipo{font-family:var(--caps);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--oro);opacity:.8;margin:8px 0 0}
+.trazo{width:100%;max-width:330px;margin:18px auto 4px;display:block}
+.trazo .linea{fill:none;stroke:var(--oro2);stroke-width:3;stroke-linecap:round;
+  filter:drop-shadow(0 0 6px rgba(240,215,154,.75))}
+.trazo .guia{fill:none;stroke:var(--oro);stroke-width:1.4;stroke-dasharray:2 7;opacity:.35}
+.pie-trazo{font-size:14px;opacity:.6;margin:0 0 16px}
+.efecto{background:rgba(243,231,204,.07);border:1px solid rgba(217,180,90,.35);border-radius:14px;
+  padding:16px 18px;margin:0 0 16px}
+.efecto p{margin:0;font-size:16.5px}
+.fonetica{font-family:var(--caps);letter-spacing:.12em;font-size:15px;color:var(--oro2);
+  margin:10px 0 0;display:block}
+.audio{display:inline-flex;align-items:center;gap:11px;font-family:var(--caps);font-size:12.5px;
+  letter-spacing:.14em;text-transform:uppercase;background:rgba(217,180,90,.12);
+  color:var(--oro2);border:1px solid var(--oro);border-radius:999px;padding:13px 24px;
+  cursor:pointer;transition:background .16s ease}
+.audio:hover{background:rgba(217,180,90,.24)}
+.audio:focus-visible{outline:2px solid var(--oro2);outline-offset:4px}
+.audio.sonando{background:rgba(217,180,90,.3)}
+.ondas{display:flex;gap:3px;align-items:center;height:16px}
+.ondas i{width:3px;height:5px;background:var(--oro2);border-radius:2px}
+.audio.sonando .ondas i{animation:onda .7s ease-in-out infinite}
+.audio.sonando .ondas i:nth-child(2){animation-delay:.12s}
+.audio.sonando .ondas i:nth-child(3){animation-delay:.24s}
+.audio.sonando .ondas i:nth-child(4){animation-delay:.36s}
+@keyframes onda{0%,100%{height:5px}50%{height:16px}}
+
+/* capitulo */
+.capitulo{width:100%;max-width:38rem;text-align:left;position:relative;
+  background:var(--pergamino);color:var(--tinta);border-radius:16px;overflow:hidden;
+  box-shadow:0 22px 50px rgba(0,0,0,.55)}
+.capitulo .fondo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+.capitulo .velo{position:absolute;inset:0;background:linear-gradient(180deg,
+  rgba(243,231,204,.9) 0%,rgba(243,231,204,.8) 40%,rgba(243,231,204,.9) 100%)}
+.capitulo .dentro{position:relative;padding:26px 22px 28px}
+.capitulo .epigrafe{color:#8A6224;opacity:1}
+.capitulo h2{color:var(--tinta);font-size:clamp(21px,5.6vw,27px);margin-bottom:14px}
+.horario{list-style:none;margin:0 0 18px;padding:0}
+.horario li{display:grid;grid-template-columns:62px 1fr;gap:10px;padding:7px 0;
+  border-bottom:1px dotted rgba(107,85,53,.4)}
+.horario b{font-family:var(--caps);font-size:14px;color:var(--granate)}
+.horario span{font-size:16px;line-height:1.42}
+.capitulo p{font-size:16px;color:var(--tinta)}
+.reto{background:rgba(255,255,255,.6);border:1px solid rgba(168,128,31,.6);border-radius:11px;
+  padding:13px 15px;margin-bottom:13px;display:flex;gap:13px;align-items:center}
+.reto img{width:56px;flex:0 0 auto}
+.reto b{font-family:var(--caps);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--granate);display:block;margin-bottom:4px}
+.reto div{font-size:15.5px;line-height:1.5}
+.cita{font-style:italic;text-align:center;color:#6B5535;font-size:15px;
+  border-top:1px solid rgba(107,85,53,.35);padding-top:13px;margin:18px 0 0}
+.volver{margin-top:20px}
+</style>
+
+<div class="cielo"></div>
+<div class="estrellas" id="estrellas" aria-hidden="true"></div>
+
+<!-- ===== PORTADA ===== -->
+<section class="escena activa" id="e-portada">
+  <p class="epigrafe">Ministerio de Magia · Sección de Matrimonios</p>
+  <h1>Jenny Potter<br>y el Colocón Filosofal</h1>
+  <svg class="ornamento" viewBox="0 0 260 26" fill="none" aria-hidden="true">
+    <path d="M8 13h78M174 13h78" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M96 13h24M140 13h24" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    <circle cx="90" cy="13" r="2" fill="currentColor"/>
+    <circle cx="170" cy="13" r="2" fill="currentColor"/>
+    <path d="M130 1l3.4 8.6L142 13l-8.6 3.4L130 25l-3.4-8.6L118 13l8.6-3.4z" fill="currentColor"/>
+    <path d="M126 5l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="currentColor" opacity=".55"/>
+  </svg>
+  <p class="tenue">Primero, el Sombrero dirá a qué casa perteneces.<br>Después: cuatro etapas y cuatro pruebas.<br>Ninguna bruja llega al altar sin superarlas.</p>
+  <button class="boton" onclick="ir('e-sombrero')">Abrir el grimorio</button>
+</section>
+
+<!-- ===== SOMBRERO: PRESENTACIÓN ===== -->
+<section class="escena" id="e-sombrero">
+  <img class="sombrero-img" src="media/sombrero.png" alt="El Sombrero Seleccionador">
+  <div class="bocadillo">
+    <p>Vaya, vaya… otra que se casa.</p>
+    <p>Siéntate, Jenny. Antes de empezar esta travesía tengo que decidir a qué casa perteneces: <b>Gryffindor</b>, <b>Slytherin</b>, <b>Ravenclaw</b> o <b>Hufflepuff</b>. Cuatro preguntas y lo sabré.</p>
+    <p>Y no mientas, que llevo mil años en esto.</p>
+  </div>
+  <button class="boton" style="margin-top:24px" onclick="empezar()">Sentarme en el taburete</button>
+</section>
+
+<!-- ===== PREGUNTAS ===== -->
+<section class="escena" id="e-pregunta">
+  <img class="sombrero-img" style="width:min(38vw,140px)" src="media/sombrero.png" alt="">
+  <div class="pregunta">
+    <p class="contador" id="contador"></p>
+    <p class="enunciado" id="enunciado"></p>
+    <div class="opciones" id="opciones"></div>
+  </div>
+</section>
+
+<!-- ===== DELIBERACIÓN ===== -->
+<section class="escena" id="e-pensando">
+  <img class="sombrero-img" src="media/sombrero.png" alt="">
+  <div class="bocadillo"><p id="murmullo">Mmm… interesante. Muy interesante.</p></div>
+  <div class="puntos" aria-hidden="true"><i></i><i></i><i></i></div>
+</section>
+
+<!-- ===== VEREDICTO ===== -->
+<section class="escena" id="e-resultado">
+  <p class="epigrafe">El sombrero ha decidido</p>
+  <p class="veredicto">¡GRYFFINDOR!</p>
+  <div class="bufanda" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <video class="retrato" id="jenny" autoplay muted loop playsinline
+         poster="media/jenny.jpg" aria-label="Jenny con la túnica y la bufanda de Gryffindor">
+    <source src="media/jenny.webm" type="video/webm">
+    <source src="media/jenny.mp4" type="video/mp4">
+  </video>
+  <img class="retrato" id="jenny-foto" src="media/jenny.jpg" hidden
+       alt="Jenny con la túnica y la bufanda de Gryffindor">
+  <p class="tenue" style="max-width:30rem">Valor, descaro y una capacidad preocupante para arrastrar a otras a los líos. No había duda.</p>
+  <button class="boton" onclick="ir('e-mapa')">Comenzar la travesía</button>
+</section>
+
+<!-- ===== MAPA ===== -->
+<section class="escena" id="e-mapa">
+  <p class="epigrafe">La travesía</p>
+  <h2>Cuatro etapas</h2>
+  <p class="tenue" style="margin-bottom:22px" id="nota-mapa"></p>
+  <div class="mapa" id="mapa"></div>
+  <p class="aviso" id="aviso" role="status"></p>
+</section>
+
+<!-- ===== PRUEBA DE MAGIA ===== -->
+<section class="escena" id="e-hechizo">
+  <div class="prueba" id="prueba"></div>
+</section>
+
+<!-- ===== CAPÍTULO ===== -->
+<section class="escena" id="e-capitulo">
+  <div class="capitulo" id="capitulo"></div>
+  <button class="boton boton--fantasma volver" onclick="ir('e-mapa')">Volver a la travesía</button>
+</section>
+
+<script>
+/* ============================================================
+   INTERRUPTOR DE CANDADOS
+   false → todos los capítulos abiertos (modo trabajo, ahora)
+   true  → cada capítulo se abre su día a las 9:00
+   Las fechas siguen guardadas abajo, en CAPS. Solo hay que
+   cambiar esta línea a true antes de enviárselo al grupo.
+   ============================================================ */
+const CANDADOS = false;
+
+/* ---------- estrellas ---------- */
+const cielo = document.getElementById('estrellas');
+for (let i = 0; i < 42; i++) {
+  const s = document.createElement('span');
+  s.style.left = Math.random() * 100 + '%';
+  s.style.top = Math.random() * 100 + '%';
+  s.style.animationDelay = (Math.random() * 3.6).toFixed(2) + 's';
+  cielo.appendChild(s);
+}
+
+/* ---------- navegación ---------- */
+function ir(id) {
+  document.querySelectorAll('.escena').forEach(e => e.classList.remove('activa'));
+  document.getElementById(id).classList.add('activa');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+/* ---------- ceremonia ---------- */
+const PREGUNTAS = [
+  { q: 'Son las cuatro de la mañana y el grupo se parte en dos. ¿Con quién te vas?',
+    o: ['Con las que quieren seguir bailando', 'Con las que buscan un sitio para comer', 'Me quedo mediando entre las dos', 'Ni una ni otra: monto un tercer plan'] },
+  { q: 'El barman se hace el sordo y no te sirve la ronda. ¿Qué haces?',
+    o: ['Le canto algo hasta que ceda', 'Mando a la más simpática del grupo', 'Espero mi turno como una señora', 'Me cuelo por el otro lado de la barra'] },
+  { q: 'Una de las brujas se ha quedado sin batería, sin dinero y sin voz. ¿Qué haces?',
+    o: ['Le doy mi móvil y mi cargador', 'La adopto y no la suelto en toda la noche', 'Organizo una colecta exprés', 'Le busco a alguien que le invite'] },
+  { q: 'Última. En un rato tus amigas te van a pedir algo que da vergüenza, y habrá gente mirando.',
+    o: ['Lo hago la primera y sin preguntar', 'Lo hago, pero bajan conmigo todas', 'Negocio una versión más suave', 'Me hago la loca y que me obliguen'] }
+];
+const MURMULLOS = ['Mmm… interesante. Muy interesante.', 'Valor, sí… y bastante morro.',
+  'Aquí hay algo. Y no es precisamente prudencia.', 'Ya lo tengo. No hay duda.'];
+
+let n = 0;
+function empezar() { n = 0; pintarPregunta(); ir('e-pregunta'); }
+
+function pintarPregunta() {
+  const p = PREGUNTAS[n];
+  document.getElementById('contador').textContent = 'Pregunta ' + (n + 1) + ' de ' + PREGUNTAS.length;
+  document.getElementById('enunciado').textContent = p.q;
+  const cont = document.getElementById('opciones');
+  cont.innerHTML = '';
+  p.o.forEach(texto => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.textContent = texto;
+    b.onclick = () => { b.classList.add('elegida'); setTimeout(siguiente, 380); };
+    cont.appendChild(b);
+  });
+}
+
+function siguiente() {
+  document.getElementById('murmullo').textContent = MURMULLOS[n];
+  ir('e-pensando');
+  const ultima = n === PREGUNTAS.length - 1;
+  setTimeout(() => {
+    if (ultima) { ir('e-resultado'); }
+    else { n++; pintarPregunta(); ir('e-pregunta'); }
+  }, ultima ? 2600 : 1500);
+}
+
+/* ---------- capítulos ---------- */
+const CAPS = [
+  { num: 'Capítulo I', dia: 'Viernes 14', abre: new Date(2026,7,14,9,0,0), icono: 'media/cerveza.png', fondo: 'media/callejon.jpg',
+    tit: 'El Callejón Diagon y Noche de Pociones',
+    epi: 'Día de llegada &amp; embrujo nocturno',
+    hechizo: { nombre:'Alohomora', tipo:'Encantamiento de apertura',
+      fon:'a-lo-HO-mo-ra',
+      efecto:'Abre cerraduras, cerrojos y puertas atrancadas. Bien lanzado, también abre barras de bar y voluntades ajenas.',
+      trazo:'M40 118 C 78 26 148 22 164 78 C 178 126 118 142 114 100 C 110 66 162 58 202 74 L 262 44',
+      pie:'Un lazo cerrado y salida limpia hacia arriba a la derecha.' },
+    horas: [['10:00','Despegue desde el andén 9¾ · aeropuerto de Gran Canaria'],
+            ['14:05','Llegada a Bilbao y traslado a la Sala Común'],
+            ['15:00','Brindis de bienvenida'],
+            ['19:00','Fiestas de Portugalete: tardeo, pinchos y noche']],
+    nota: 'De camino: el Puente de Vizcaya, que se cruza por arriba en ascensor, y parada en Rialia, el Museo de la Industria, donde hay conciertos y fiestas.',
+    retos: [['Misión para Jenny','Al entrar en la primera taberna luciendo su sombrero de bruja, debe pronunciar firmemente el hechizo «¡Alohomora!» apuntando con su varita al barman para que sirva la primera ronda.','media/cerveza.png'],
+            ['Reto de la Casa Gryffindor','Conseguir que el Encantador de Música o el encargado del local le dedique una canción especial a la gran bruja Jenny antes de que expire la medianoche.',null]],
+    cita: '«Un mago no llega tarde, ni pronto; llega exactamente cuando se lo propone.»' },
+
+  { num: 'Capítulo II', dia: 'Sábado 15', abre: new Date(2026,7,15,9,0,0), icono: 'media/snitch.png', fondo: 'media/partido.jpg',
+    tit: 'El Festín Real y el Tardeo Mágico',
+    epi: 'Día central del torneo',
+    hechizo: { nombre:'Wingardium Leviosa', tipo:'Encantamiento de levitación',
+      fon:'win-GAR-dium levi-O-sa',
+      efecto:'Hace levitar objetos. Imprescindible para levantar copas, ánimos y a quien se quede rezagada.',
+      trazo:'M42 106 C 62 36 130 34 150 98 C 168 152 222 136 238 86 L 256 26',
+      pie:'Loma, valle y latigazo seco hacia arriba: swish and flick.' },
+    horas: [['10:00','Desayuno'], ['12:00','Paseo por Bilbao'],
+            ['14:00','Almuerzo en las tascas de Isozaki'],
+            ['18:00','Tardeo y pintxos en Bilbao']],
+    nota: 'De las tascas se sale al Zubizuri y en diez minutos de paseo por la ría se planta una en el Guggenheim.',
+    retos: [['Ritual mágico','Imposición oficial a Jenny de su Sombrero de Bruja de la Casa Gryffindor y firma del Pergamino del Buen Deseo por todas las asistentes.','media/snitch.png'],
+            ['Juego: verdad o hechizo','Jenny responderá a preguntas comprometidas sobre su prometido. Por cada fallo, deberá cumplir un reto impuesto por el Sombrero Seleccionador, es decir, por sus amigas.',null]],
+    cita: '«Son nuestras elecciones las que muestran lo que somos, mucho más que nuestras capacidades.»' },
+
+  { num: 'Capítulo III', dia: 'Domingo 16', abre: new Date(2026,7,16,9,0,0), icono: 'media/escoba.png', fondo: 'media/agua.jpg',
+    tit: 'La Expedición al Lago Negro',
+    epi: 'Viaje de aventura &amp; brisa marina',
+    hechizo: { nombre:'Aguamenti', tipo:'Encantamiento de agua',
+      fon:'a-gua-MEN-ti',
+      efecto:'Hace brotar un chorro de agua limpia de la punta de la varita. En la playa es redundante, pero queda espectacular.',
+      trazo:'M34 92 C 64 42 94 142 124 92 C 154 42 184 142 214 92 L 266 92',
+      pie:'Tres ondas seguidas y un trazo recto final.' },
+    horas: [['12:45','Autobús desde la estación de Bilbao'],
+            ['14:05','Llegada a San Sebastián'],
+            ['Tarde','Playa de La Concha: baño, sol y bahía'],
+            ['19:30','Autobús de vuelta'], ['20:50','Llegada a Bilbao']],
+    nota: 'De propina: andando desde La Concha se llega al Peine del Viento. Con marea alta el mar sale disparado por los agujeros del suelo.',
+    retos: [['Misión playera','El grupo deberá esculpir en la arena una criatura mágica o un castillo gigante y posar alrededor junto a la novia y su sombrero para la foto oficial.','media/escoba.png'],
+            ['Ración mágica en la Parte Vieja','Ruta de manjares y delicias marinas para reponer fuerzas tras la inmersión. Ojo: el Txepetxa cierra los domingos; La Cuchara de San Telmo sí abre.',null]],
+    cita: '«La felicidad se puede hallar hasta en los más oscuros momentos, si somos capaces de usar bien la luz.»' },
+
+  { num: 'Capítulo IV', dia: 'Lunes 17', abre: new Date(2026,7,17,9,0,0), icono: 'media/lechuza.png', fondo: 'media/comida.jpg',
+    tit: 'El Banquete del Vínculo Matrimonial',
+    epi: 'Cierre épico &amp; brindis final',
+    hechizo: { nombre:'Expecto Patronum', tipo:'Encantamiento de protección',
+      fon:'ex-PEC-to pa-TRO-num',
+      efecto:'Invoca un guardián hecho de los recuerdos más felices. Se lanza pensando en algo que dé una alegría enorme. Hoy no hace falta buscar mucho.',
+      trazo:'M150 34 A 52 52 0 1 0 152 34 M186 118 L 258 56',
+      pie:'Círculo completo y salida en diagonal.' },
+    horas: [['11:00','Salida del alojamiento con maletas'],
+            ['14:00','Comida de clausura'], ['19:00','Camino al aeropuerto'],
+            ['21:10','Vuelo a Las Palmas'], ['23:35','Llegada']],
+    nota: '',
+    retos: [['El juramento inviolable','Antes del postre, cada bruja del escuadrón dedicará unas palabras, un deseo o una promesa de lealtad a Jenny para su nueva vida de casada.','media/lechuza.png']],
+    cita: '¡Que la magia os acompañe siempre!' }
+];
+
+/* modo prueba: abre la url con  #preview  para verlo todo sin esperar */
+const PREVIEW = location.hash === '#preview';
+const abierto = i => !CANDADOS || PREVIEW || Date.now() >= CAPS[i].abre.getTime();
+
+function restante(destino) {
+  let s = Math.max(0, Math.floor((destino - Date.now()) / 1000));
+  const d = Math.floor(s / 86400); s -= d * 86400;
+  const hh = Math.floor(s / 3600); s -= hh * 3600;
+  const mm = Math.floor(s / 60); const ss = s - mm * 60;
+  if (d > 0) return d + 'd ' + hh + 'h ' + mm + 'm';
+  if (hh > 0) return hh + 'h ' + mm + 'm ' + ss + 's';
+  return mm + 'm ' + ss + 's';
+}
+
+function pintarMapa() {
+  const m = document.getElementById('mapa');
+  m.innerHTML = '';
+  CAPS.forEach((c, i) => {
+    const ok = abierto(i);
+    const b = document.createElement('button');
+    b.className = 'tarjeta' + (ok ? '' : ' bloqueada');
+    b.innerHTML = '<img src="' + c.icono + '" alt="">' +
+      '<div class="info"><div class="num">' + c.num + '</div>' +
+      '<div class="tit">' + c.tit + '</div>' +
+      '<div class="dia">' + c.dia + (ok ? '' :
+        ' · se abre en <span class="cuenta" data-i="' + i + '">' + restante(c.abre) + '</span>') +
+      '</div></div>' +
+      '<div class="candado">' + (ok ? '✦' : '🔒') + '</div>';
+    b.onclick = () => abierto(i) ? abrirPrueba(i) : negar(b, i);
+    m.appendChild(b);
+  });
+}
+
+const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+function negar(boton, i) {
+  boton.classList.remove('niega');
+  void boton.offsetWidth;
+  boton.classList.add('niega');
+  const f = CAPS[i].abre;
+  const aviso = document.getElementById('aviso');
+  aviso.textContent = 'Este capítulo se abre el ' + DIAS[f.getDay()] + ' ' + f.getDate() +
+    ' a las ' + f.getHours() + ':00. Ni el Sombrero puede adelantarlo.';
+  aviso.classList.add('visible');
+  clearTimeout(negar.t);
+  negar.t = setTimeout(() => aviso.classList.remove('visible'), 4200);
+}
+
+/* el reloj corre solo; cuando llega la hora, la tarjeta se abre sola */
+setInterval(() => {
+  const cuentas = document.querySelectorAll('.cuenta');
+  if (!cuentas.length) return;
+  let hayQueRepintar = false;
+  cuentas.forEach(el => {
+    const i = +el.dataset.i;
+    if (abierto(i)) hayQueRepintar = true;
+    else el.textContent = restante(CAPS[i].abre);
+  });
+  if (hayQueRepintar) pintarMapa();
+}, 1000);
+
+function abrirPrueba(i) {
+  const c = CAPS[i], e = c.hechizo;
+  document.getElementById('prueba').innerHTML =
+    '<p class="sello">' + c.num + ' · Prueba de magia</p>' +
+    '<p class="conjuro">' + e.nombre + '</p>' +
+    '<p class="tipo">' + e.tipo + '</p>' +
+    '<svg class="trazo" viewBox="0 0 300 160" aria-label="Movimiento de varita">' +
+      '<path class="guia" d="' + e.trazo + '"/>' +
+      (function(){ const n = e.trazo.match(/-?[\d.]+/g);
+        return '<circle cx="' + n[0] + '" cy="' + n[1] + '" r="4.5" fill="#D9B45A" opacity=".75"/>'; })() +
+      '<path class="linea" id="trazo-vivo" d="' + e.trazo + '" stroke-dasharray="700" stroke-dashoffset="700">' +
+        '<animate attributeName="stroke-dashoffset" from="700" to="0" dur="2.4s" begin="0.3s" ' +
+          'repeatCount="indefinite" keyTimes="0;0.75;1" values="700;0;0"/>' +
+      '</path>' +
+      '<circle r="5" fill="#F0D79A" opacity=".95">' +
+        '<animateMotion dur="2.4s" begin="0.3s" repeatCount="indefinite" keyTimes="0;0.75;1" ' +
+          'keyPoints="0;1;1" calcMode="linear" path="' + e.trazo + '"/>' +
+      '</circle>' +
+    '</svg>' +
+    '<p class="pie-trazo">' + e.pie + '</p>' +
+    '<div class="efecto"><p>' + e.efecto + '</p>' +
+      '<span class="fonetica">Se pronuncia: ' + e.fon + '</span></div>' +
+    '<button class="audio" id="btn-audio">' +
+      '<span class="ondas" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
+      'Escuchar el conjuro</button>' +
+    '<div style="margin-top:24px"><button class="boton" id="btn-lanzar">Lanzar el hechizo</button></div>' +
+    '<div style="margin-top:12px"><button class="boton boton--fantasma" onclick="ir(\'e-mapa\')">Volver</button></div>';
+
+  document.getElementById('btn-audio').onclick = function () { pronunciar(e, this); };
+  document.getElementById('btn-lanzar').onclick = () => abrirCapitulo(i);
+  ir('e-hechizo');
+}
+
+/* Voz: usa el archivo media/hechizos/NOMBRE.mp3 si existe,
+   y si no, la voz del propio dispositivo. */
+function pronunciar(e, boton) {
+  const fin = () => boton.classList.remove('sonando');
+  boton.classList.add('sonando');
+  const ruta = 'media/hechizos/' + e.nombre.toLowerCase().replace(/ /g, '-') + '.mp3';
+  const a = new Audio(ruta);
+  a.onended = fin;
+  a.onerror = () => { vozDelSistema(e.nombre, fin); };
+  a.play().catch(() => vozDelSistema(e.nombre, fin));
+}
+
+function vozDelSistema(texto, fin) {
+  if (!('speechSynthesis' in window)) { fin(); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(texto);
+  u.lang = 'es-ES';
+  u.rate = 0.72;
+  u.pitch = 0.85;
+  u.onend = fin;
+  u.onerror = fin;
+  speechSynthesis.speak(u);
+}
+
+function abrirCapitulo(i) {
+  const c = CAPS[i];
+  let html = '<img class="fondo" src="' + c.fondo + '" alt=""><div class="velo"></div><div class="dentro">' +
+    '<p class="epigrafe">' + c.num + ' · ' + c.epi + '</p><h2>' + c.tit + '</h2><ul class="horario">';
+  c.horas.forEach(h => { html += '<li><b>' + h[0] + '</b><span>' + h[1] + '</span></li>'; });
+  html += '</ul>';
+  if (c.nota) html += '<p>' + c.nota + '</p>';
+  c.retos.forEach(r => {
+    html += '<div class="reto">' + (r[2] ? '<img src="' + r[2] + '" alt="">' : '') +
+      '<div><b>' + r[0] + '</b>' + r[1] + '</div></div>';
+  });
+  html += '<p class="cita">' + c.cita + '</p></div>';
+  document.getElementById('capitulo').innerHTML = html;
+  ir('e-capitulo');
+}
+
+document.getElementById('nota-mapa').innerHTML = CANDADOS
+  ? 'Cada capítulo se abre su día, a las nueve de la mañana.'
+  : 'Modo trabajo: candados desactivados.<br><span style="opacity:.6;font-size:14px">Las fechas siguen guardadas. Se reactivan poniendo CANDADOS = true.</span>';
+
+/* si no hay vídeo disponible, se muestra la foto */
+const v = document.getElementById('jenny');
+v.addEventListener('error', mostrarFoto, true);
+setTimeout(() => { if (!v.videoWidth && v.readyState === 0) mostrarFoto(); }, 1200);
+function mostrarFoto() {
+  v.hidden = true;
+  document.getElementById('jenny-foto').hidden = false;
+}
+
+pintarMapa();
+</script>
