@@ -199,7 +199,7 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
     <path d="M126 5l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="currentColor" opacity=".55"/>
   </svg>
   <p class="tenue">Primero, el Sombrero dirá a qué casa perteneces.<br>Después: cuatro etapas y cuatro pruebas.<br>Ninguna bruja llega al altar sin superarlas.</p>
-  <button class="boton" onclick="ir('e-sombrero')">Abrir el grimorio</button>
+  <button class="boton" id="boton-portada" onclick="ir('e-sombrero')">Ver mi casa</button>
 </section>
 
 <!-- ===== SOMBRERO: PRESENTACIÓN ===== -->
@@ -245,7 +245,7 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
   <img class="retrato" id="jenny-foto" src="FINAL_jenny.jpg" hidden
        alt="Jenny con la túnica y la bufanda de Gryffindor">
   <p class="tenue" style="max-width:30rem">Valor, descaro y una capacidad preocupante para arrastrar a otras a los líos. No había duda.</p>
-  <button class="boton" onclick="ir('e-mapa')">Comenzar la travesía</button>
+  <button class="boton" onclick="guardarSeleccion()">Comenzar la travesía</button>
 </section>
 
 <!-- ===== MAPA ===== -->
@@ -287,6 +287,27 @@ for (let i = 0; i < 42; i++) {
   s.style.animationDelay = (Math.random() * 3.6).toFixed(2) + 's';
   cielo.appendChild(s);
 }
+
+/* ---------- memoria del dispositivo ---------- */
+const YA_SELECCIONADA = 'jenny-ya-seleccionada';
+
+function guardarSeleccion() {
+  try { localStorage.setItem(YA_SELECCIONADA, '1'); } catch (err) {}
+  ir('e-mapa');
+}
+
+/* si ya pasó por el Sombrero en una visita anterior, la portada
+   lleva directa al mapa y se salta la ceremonia entera */
+function yaFueSeleccionada() {
+  try { return localStorage.getItem(YA_SELECCIONADA) === '1'; } catch (err) { return false; }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (yaFueSeleccionada()) {
+    document.getElementById('boton-portada').textContent = 'Abrir el grimorio';
+    document.getElementById('boton-portada').onclick = () => ir('e-mapa');
+  }
+});
 
 /* ---------- navegación ---------- */
 function ir(id) {
