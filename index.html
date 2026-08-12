@@ -498,16 +498,23 @@ function abrirPrueba(i) {
   ir('e-hechizo');
 }
 
-/* Voz: usa el archivo media/hechizos/NOMBRE.mp3 si existe,
-   y si no, la voz del propio dispositivo. */
+/* Voz: busca hechizos/NOMBRE.mp3 y, si no está, hechizos/NOMBRE.m4a.
+   Si no existe ninguno de los dos, usa la voz del propio dispositivo. */
 function pronunciar(e, boton) {
   const fin = () => boton.classList.remove('sonando');
   boton.classList.add('sonando');
-  const ruta = 'hechizos/' + e.nombre.toLowerCase().replace(/ /g, '-') + '.mp3';
+  const base = e.nombre.toLowerCase().replace(/ /g, '-');
+  intentarAudio([base + '.mp3', base + '.m4a'], fin, () => vozDelSistema(e.nombre, fin));
+}
+
+/* prueba las rutas en orden; si ninguna existe, usa la voz del sistema */
+function intentarAudio(rutas, fin, siNinguna) {
+  const [ruta, ...resto] = rutas;
+  if (!ruta) { siNinguna(); return; }
   const a = new Audio(ruta);
   a.onended = fin;
-  a.onerror = () => { vozDelSistema(e.nombre, fin); };
-  a.play().catch(() => vozDelSistema(e.nombre, fin));
+  a.onerror = () => intentarAudio(resto, fin, siNinguna);
+  a.play().catch(() => intentarAudio(resto, fin, siNinguna));
 }
 
 function vozDelSistema(texto, fin) {
