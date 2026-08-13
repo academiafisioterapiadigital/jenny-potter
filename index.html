@@ -201,8 +201,8 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 .conjuro-global.cargando .boton-conjuro span{opacity:.7}
 .conjuro-global.listo{opacity:.85;transition:opacity .6s ease .3s}
 .conjuro-global.listo p{margin:0;font-size:14.5px;text-align:center}
-.destello-global{position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:16px;
-  background:radial-gradient(circle,#fff,var(--oro2) 40%,transparent 72%);opacity:0}
+.destello-global{position:fixed;inset:0;z-index:50;pointer-events:none;
+  background:radial-gradient(circle at 50% 40vh,#fff,var(--oro2) 35%,transparent 68%);opacity:0}
 .destello-global.disparo{animation:destelloflash 1s ease-out}
 @keyframes destelloflash{0%{opacity:0}25%{opacity:.85}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.destello-global.disparo{animation:none}}
@@ -743,7 +743,7 @@ function pintarComun() {
   divJenny.className = 'retrato-bruja novia';
   divJenny.innerHTML = '<div class="carta"><div class="cara">' +
     '<div class="reserva">' + jenny.nombre.charAt(0) + '</div>' +
-    '<img src="' + jenny.archivo + '" alt="' + jenny.nombre + '" loading="lazy" ' +
+    '<img src="' + jenny.archivo + '" alt="' + jenny.nombre + '" ' +
       'onload="this.previousElementSibling.style.display=\'none\'" ' +
       'onerror="this.style.display=\'none\'">' +
     '<div class="nombre">' + jenny.nombre + '</div>' +
@@ -777,7 +777,7 @@ function pintarComun() {
       '<div class="carta">' +
         '<div class="cara">' +
           '<div class="reserva">' + inicial + '</div>' +
-          '<img src="' + p.archivo + '" alt="' + p.nombre + '" loading="lazy" ' +
+          '<img src="' + p.archivo + '" alt="' + p.nombre + '" ' +
             'onload="this.previousElementSibling.style.display=\'none\'" ' +
             'onerror="this.style.display=\'none\'">' +
           '<span class="toca">↻</span>' +
