@@ -163,6 +163,28 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
   color:#2B2118;background:var(--oro2);border-radius:999px;padding:3px 10px}
 .retrato-bruja.novia > .cara{position:absolute;inset:0}
 .retrato-bruja.novia .dorso p{font-size:15.5px}
+
+/* hechizo Revelio */
+.retrato-bruja .toca{transition:opacity .2s ease}
+.retrato-bruja.conjurando .toca{opacity:0}
+.retrato-bruja .conjuro-capa{position:absolute;inset:0;z-index:3;border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  background:rgba(10,7,16,.72);opacity:0;pointer-events:none;transition:opacity .18s ease}
+.retrato-bruja.conjurando .conjuro-capa{opacity:1}
+.retrato-bruja .anillo{width:52px;height:52px;position:relative}
+.retrato-bruja .anillo svg{width:100%;height:100%;transform:rotate(-90deg)}
+.retrato-bruja .anillo circle{fill:none;stroke-width:3}
+.retrato-bruja .anillo .pista{stroke:rgba(217,180,90,.22)}
+.retrato-bruja .anillo .avance{stroke:var(--oro2);stroke-linecap:round;
+  stroke-dasharray:145;stroke-dashoffset:145;transition:stroke-dashoffset linear}
+.retrato-bruja .conjuro-texto{font-family:var(--caps);font-size:11px;letter-spacing:.1em;
+  color:var(--oro2);text-align:center;padding:0 14px;line-height:1.4}
+.retrato-bruja .destello{position:absolute;inset:0;z-index:4;border-radius:14px;
+  background:radial-gradient(circle,#fff,var(--oro2) 45%,transparent 75%);
+  opacity:0;pointer-events:none}
+.retrato-bruja.destellando .destello{animation:destelloflash .5s ease-out}
+@keyframes destelloflash{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.retrato-bruja.destellando .destello{animation:none}}
 @media (max-width:480px){
   .comun{grid-template-columns:1fr;max-width:20rem}
   .retrato-bruja::before{padding-top:75%}
@@ -705,19 +727,72 @@ function pintarComun() {
 
     div.setAttribute('role', 'button');
     div.setAttribute('tabindex', '0');
-    div.setAttribute('aria-label', 'Ver dedicatoria de ' + p.nombre);
+    div.setAttribute('aria-label', 'Mantén pulsado y di Revelio para ver la dedicatoria de ' + p.nombre);
     div.innerHTML =
       '<div class="carta">' +
-        '<div class="cara">' + caraSuelta + '<span class="toca">↻</span></div>' +
+        '<div class="cara">' + caraSuelta +
+          '<span class="toca">↻</span>' +
+          '<div class="conjuro-capa">' +
+            '<div class="anillo"><svg viewBox="0 0 52 52">' +
+              '<circle class="pista" cx="26" cy="26" r="23"/>' +
+              '<circle class="avance" cx="26" cy="26" r="23"/>' +
+            '</svg></div>' +
+            '<p class="conjuro-texto">Di «Revelio»<br>en voz alta…</p>' +
+          '</div>' +
+          '<div class="destello"></div>' +
+        '</div>' +
         '<div class="dorso">' +
           '<span class="quien">' + p.nombre + '</span>' +
           '<p>' + (p.dedicatoria || 'Aún sin dedicatoria.') + '</p>' +
         '</div>' +
       '</div>';
-    const voltear = () => div.classList.toggle('volteada');
-    div.addEventListener('click', voltear);
+
+    const DURACION = 1800; // ms que hay que mantener pulsado
+    let temporizador = null, inicio = 0;
+    const anillo = div.querySelector('.avance');
+
+    function empezarConjuro(ev) {
+      if (div.classList.contains('volteada')) return; // ya revelada, un toque normal la vuelve a girar
+      ev.preventDefault();
+      div.classList.add('conjurando');
+      inicio = performance.now();
+      const paso = () => {
+        const transcurrido = performance.now() - inicio;
+        const fraccion = Math.min(1, transcurrido / DURACION);
+        anillo.style.strokeDashoffset = String(145 * (1 - fraccion));
+        if (fraccion < 1) { temporizador = requestAnimationFrame(paso); }
+        else { completarConjuro(); }
+      };
+      temporizador = requestAnimationFrame(paso);
+    }
+
+    function cancelarConjuro() {
+      if (temporizador) cancelAnimationFrame(temporizador);
+      div.classList.remove('conjurando');
+      anillo.style.strokeDashoffset = '145';
+    }
+
+    function completarConjuro() {
+      div.classList.remove('conjurando');
+      div.classList.add('destellando');
+      div.classList.add('volteada');
+      setTimeout(() => div.classList.remove('destellando'), 500);
+    }
+
+    div.addEventListener('pointerdown', empezarConjuro);
+    div.addEventListener('pointerup', cancelarConjuro);
+    div.addEventListener('pointerleave', cancelarConjuro);
+    div.addEventListener('pointercancel', cancelarConjuro);
+    div.addEventListener('click', () => {
+      // si ya esta revelada, un toque simple la vuelve a cerrar
+      if (div.classList.contains('volteada')) div.classList.remove('volteada');
+    });
     div.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); voltear(); }
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
+        if (div.classList.contains('volteada')) div.classList.remove('volteada');
+        else completarConjuro();
+      }
     });
     cont.appendChild(div);
   });
