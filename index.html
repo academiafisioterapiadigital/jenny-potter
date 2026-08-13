@@ -112,7 +112,7 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 
 /* sala comun */
 .comun{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:34rem;
-  perspective:1000px}
+  -webkit-perspective:1000px;perspective:1000px}
 @media (max-width:480px){
   .comun{grid-template-columns:1fr;max-width:20rem}
   .retrato-bruja{aspect-ratio:4/3}
@@ -120,10 +120,12 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 }
 .retrato-bruja{position:relative;aspect-ratio:3/4;background:none;border:0;
   cursor:pointer;-webkit-tap-highlight-color:transparent}
-.retrato-bruja .carta{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.1,.2,1);
-  transform-style:preserve-3d}
-.retrato-bruja.volteada .carta{transform:rotateY(180deg)}
-.retrato-bruja .cara{position:absolute;inset:0;border-radius:14px;overflow:hidden;backface-visibility:hidden;
+.retrato-bruja .carta{position:relative;width:100%;height:100%;
+  transition:-webkit-transform .6s cubic-bezier(.4,.1,.2,1),transform .6s cubic-bezier(.4,.1,.2,1);
+  -webkit-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:translateZ(0)}
+.retrato-bruja.volteada .carta{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
+.retrato-bruja .cara{position:absolute;inset:0;border-radius:14px;overflow:hidden;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateZ(0);
   background:linear-gradient(160deg,#3A1620,#1E0C13);border:1px solid rgba(217,180,90,.35)}
 .retrato-bruja img{width:100%;height:100%;object-fit:cover;display:block}
 .retrato-bruja .reserva{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -134,8 +136,9 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 .retrato-bruja .toca{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;
   background:rgba(10,7,16,.55);border:1px solid rgba(217,180,90,.5);display:flex;
   align-items:center;justify-content:center;color:var(--oro2);font-size:11px}
-.retrato-bruja .dorso{position:absolute;inset:0;border-radius:14px;overflow:hidden;backface-visibility:hidden;
-  transform:rotateY(180deg);background:linear-gradient(155deg,#2A1030,#170A1C);
+.retrato-bruja .dorso{position:absolute;inset:0;border-radius:14px;overflow:hidden;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;
+  -webkit-transform:rotateY(180deg);transform:rotateY(180deg);background:linear-gradient(155deg,#2A1030,#170A1C);
   border:1px solid var(--oro);padding:16px 14px;display:flex;flex-direction:column;
   align-items:center;justify-content:center;text-align:center;gap:8px}
 .retrato-bruja .dorso .quien{font-family:var(--caps);font-size:10.5px;letter-spacing:.18em;
