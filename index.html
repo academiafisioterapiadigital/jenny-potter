@@ -120,9 +120,10 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 /* sala comun */
 .comun{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:34rem;
   -webkit-perspective:1000px;perspective:1000px}
-.retrato-bruja{position:relative;aspect-ratio:3/4;background:none;border:0;
+.retrato-bruja{position:relative;width:100%;background:none;border:0;
   cursor:pointer;-webkit-tap-highlight-color:transparent}
-.retrato-bruja .carta{position:relative;width:100%;height:100%;
+.retrato-bruja::before{content:"";display:block;padding-top:133.33%}
+.retrato-bruja .carta{position:absolute;inset:0;width:100%;height:100%;
   transition:-webkit-transform .6s cubic-bezier(.4,.1,.2,1),transform .6s cubic-bezier(.4,.1,.2,1);
   -webkit-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:translateZ(0)}
 .retrato-bruja.volteada .carta{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
@@ -147,18 +148,20 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
   text-transform:uppercase;color:var(--oro)}
 .retrato-bruja .dorso p{margin:0;font-size:13.5px;line-height:1.42;font-style:italic;color:#EFE3CC;
   max-width:none}
-.retrato-bruja.novia{grid-column:span 2;aspect-ratio:16/10}
+.retrato-bruja.novia{grid-column:span 2}
+.retrato-bruja.novia::before{padding-top:62.5%}
 .retrato-bruja.novia .cara{border-color:var(--oro)}
 .retrato-bruja.novia img{object-position:50% 12%}
 .retrato-bruja.novia .nombre{font-size:15px;letter-spacing:.1em}
 .retrato-bruja.novia .cara::before{content:"✦ La novia";position:absolute;top:9px;left:9px;z-index:1;
   font-family:var(--caps);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:#2B2118;background:var(--oro2);border-radius:999px;padding:3px 10px}
+.retrato-bruja.novia > .cara{position:absolute;inset:0}
 .retrato-bruja.novia .dorso p{font-size:15.5px}
 @media (max-width:480px){
   .comun{grid-template-columns:1fr;max-width:20rem}
-  .retrato-bruja{aspect-ratio:4/3}
-  .retrato-bruja.novia{grid-column:span 1;aspect-ratio:4/3}
+  .retrato-bruja::before{padding-top:75%}
+  .retrato-bruja.novia{grid-column:span 1}
 }
 
 /* mapa de capitulos */
