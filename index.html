@@ -50,6 +50,17 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 .boton:focus-visible{outline:2px solid var(--oro2);outline-offset:4px}
 .boton--fantasma{background:transparent;color:var(--oro2);box-shadow:none}
 
+.boton--magico{position:relative;background:linear-gradient(180deg,#F0D79A,#D9B45A 55%,#B8912E);
+  color:#241708;border:1px solid #F3E2AE;box-shadow:0 8px 22px rgba(217,180,90,.35);
+  overflow:hidden;isolation:isolate}
+.boton--magico:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(217,180,90,.5)}
+.boton--magico::before{content:"";position:absolute;top:0;bottom:0;width:40%;z-index:1;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.75) 45%,transparent 90%);
+  filter:blur(3px);animation:destello 3.6s ease-in-out infinite}
+.boton--magico span{position:relative;z-index:2}
+@keyframes destello{0%{left:-45%}55%{left:115%}100%{left:115%}}
+@media (prefers-reduced-motion:reduce){.boton--magico::before{animation:none;display:none}}
+
 /* sombrero */
 .sombrero-img{width:min(62vw,240px);filter:drop-shadow(0 18px 34px rgba(0,0,0,.6));
   animation:flota 4.5s ease-in-out infinite}
@@ -100,8 +111,14 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 .bufanda i:nth-child(even){background:var(--oro)}
 
 /* sala comun */
-.comun{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:34rem}
-.retrato-bruja{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:3/4;
+.comun{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:34rem;
+  perspective:1000px}
+.retrato-bruja{position:relative;aspect-ratio:3/4;background:none;border:0;
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+.retrato-bruja .carta{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.1,.2,1);
+  transform-style:preserve-3d}
+.retrato-bruja.volteada .carta{transform:rotateY(180deg)}
+.retrato-bruja .cara{position:absolute;inset:0;border-radius:14px;overflow:hidden;backface-visibility:hidden;
   background:linear-gradient(160deg,#3A1620,#1E0C13);border:1px solid rgba(217,180,90,.35)}
 .retrato-bruja img{width:100%;height:100%;object-fit:cover;display:block}
 .retrato-bruja .reserva{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -109,11 +126,25 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 .retrato-bruja .nombre{position:absolute;left:0;right:0;bottom:0;padding:8px 9px 7px;
   background:linear-gradient(180deg,transparent,rgba(10,7,16,.92));
   font-family:var(--caps);font-size:12.5px;letter-spacing:.06em;color:#F3E7CB;text-align:center}
-.retrato-bruja.novia{grid-column:span 2;aspect-ratio:16/10;border-color:var(--oro)}
+.retrato-bruja .toca{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;
+  background:rgba(10,7,16,.55);border:1px solid rgba(217,180,90,.5);display:flex;
+  align-items:center;justify-content:center;color:var(--oro2);font-size:11px}
+.retrato-bruja .dorso{position:absolute;inset:0;border-radius:14px;overflow:hidden;backface-visibility:hidden;
+  transform:rotateY(180deg);background:linear-gradient(155deg,#2A1030,#170A1C);
+  border:1px solid var(--oro);padding:16px 14px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:8px}
+.retrato-bruja .dorso .quien{font-family:var(--caps);font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--oro)}
+.retrato-bruja .dorso p{margin:0;font-size:13.5px;line-height:1.42;font-style:italic;color:#EFE3CC;
+  max-width:none}
+.retrato-bruja.novia{grid-column:span 2;aspect-ratio:16/10}
+.retrato-bruja.novia .cara{border-color:var(--oro)}
+.retrato-bruja.novia img{object-position:50% 12%}
 .retrato-bruja.novia .nombre{font-size:15px;letter-spacing:.1em}
-.retrato-bruja.novia::before{content:"✦ La novia";position:absolute;top:9px;left:9px;z-index:1;
+.retrato-bruja.novia .cara::before{content:"✦ La novia";position:absolute;top:9px;left:9px;z-index:1;
   font-family:var(--caps);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:#2B2118;background:var(--oro2);border-radius:999px;padding:3px 10px}
+.retrato-bruja.novia .dorso p{font-size:15.5px}
 
 /* mapa de capitulos */
 .mapa{width:100%;max-width:36rem}
@@ -282,7 +313,7 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
   <p class="tenue" style="margin-bottom:22px" id="nota-mapa"></p>
   <div class="mapa" id="mapa"></div>
   <p class="aviso" id="aviso" role="status"></p>
-  <button class="boton boton--fantasma" style="margin-top:6px" onclick="ir('e-comun')">Ver la Sala Común</button>
+  <button class="boton boton--magico" style="margin-top:14px" onclick="ir('e-comun')"><span>✦ Ver la Sala Común ✦</span></button>
 </section>
 
 <!-- ===== PRUEBA DE MAGIA ===== -->
@@ -607,19 +638,33 @@ function mostrarFoto() {
   document.getElementById('jenny-foto').hidden = false;
 }
 
+/* La dedicatoria de cada una: cambia el texto de "dedicatoria" por lo que
+   quieras que lea Jenny al voltear su tarjeta. Puede ir vacío ''. */
 const PERSONAS = [
-  { nombre: 'Jenny', archivo: 'FINAL_jenny.png', novia: true },
-  { nombre: 'Aleida', archivo: 'aleida.png' },
-  { nombre: 'Cris', archivo: 'cris.png' },
-  { nombre: 'Natalia', archivo: 'natalia.png' },
-  { nombre: 'Vero', archivo: 'vero.png' },
-  { nombre: 'Pilu', archivo: 'pilu.png' },
-  { nombre: 'Debora', archivo: 'debora.png' },
-  { nombre: 'Irene', archivo: 'irene.png' },
-  { nombre: 'Vicky', archivo: 'vicky.png' },
-  { nombre: 'Mimi', archivo: 'mimi.png' },
-  { nombre: 'Omaira', archivo: 'omaira.png' },
-  { nombre: 'Carmela', archivo: 'carmela.png' },
+  { nombre: 'Jenny', archivo: 'FINAL_jenny.png', novia: true,
+    dedicatoria: 'La razón por la que estamos todas aquí. Te queremos, bruja.' },
+  { nombre: 'Aleida', archivo: 'aleida.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Cris', archivo: 'cris.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Natalia', archivo: 'natalia.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Vero', archivo: 'vero.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Pilu', archivo: 'pilu.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Debora', archivo: 'debora.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Irene', archivo: 'irene.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Vicky', archivo: 'vicky.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Mimi', archivo: 'mimi.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Omaira', archivo: 'omaira.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+  { nombre: 'Carmela', archivo: 'carmela.png',
+    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
 ];
 
 function pintarComun() {
@@ -629,12 +674,37 @@ function pintarComun() {
     const inicial = p.nombre.charAt(0);
     const div = document.createElement('div');
     div.className = 'retrato-bruja' + (p.novia ? ' novia' : '');
-    div.innerHTML =
+    const caraSuelta =
       '<div class="reserva">' + inicial + '</div>' +
       '<img src="' + p.archivo + '" alt="' + p.nombre + '" loading="lazy" ' +
         'onload="this.previousElementSibling.style.display=\'none\'" ' +
         'onerror="this.style.display=\'none\'">' +
       '<div class="nombre">' + p.nombre + '</div>';
+
+    if (p.novia) {
+      /* Jenny no gira: sin el envoltorio de la carta (evita un fallo de
+         renderizado de Safari con backface-visibility en tarjetas que no giran) */
+      div.innerHTML = '<div class="cara">' + caraSuelta + '</div>';
+      cont.appendChild(div);
+      return;
+    }
+
+    div.setAttribute('role', 'button');
+    div.setAttribute('tabindex', '0');
+    div.setAttribute('aria-label', 'Ver dedicatoria de ' + p.nombre);
+    div.innerHTML =
+      '<div class="carta">' +
+        '<div class="cara">' + caraSuelta + '<span class="toca">↻</span></div>' +
+        '<div class="dorso">' +
+          '<span class="quien">' + p.nombre + '</span>' +
+          '<p>' + (p.dedicatoria || 'Aún sin dedicatoria.') + '</p>' +
+        '</div>' +
+      '</div>';
+    const voltear = () => div.classList.toggle('volteada');
+    div.addEventListener('click', voltear);
+    div.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); voltear(); }
+    });
     cont.appendChild(div);
   });
 }
