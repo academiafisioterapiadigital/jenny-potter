@@ -286,12 +286,7 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
   <div class="bufanda" aria-hidden="true">
     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
   </div>
-  <video class="retrato" id="jenny" autoplay muted loop playsinline
-         poster="FINAL_FINAL_jenny.jpg" aria-label="Jenny con la túnica y la bufanda de Gryffindor">
-    <source src="jenny.webm" type="video/webm">
-    <source src="jenny.mp4" type="video/mp4">
-  </video>
-  <img class="retrato" id="jenny-foto" src="FINAL_FINAL_jenny.jpg" hidden
+  <img class="retrato" id="jenny-foto" src="FINAL_jenny.jpg"
        alt="Jenny con la túnica y la bufanda de Gryffindor">
   <p class="tenue" style="max-width:30rem">Valor, descaro y una capacidad preocupante para arrastrar a otras a los líos. No había duda.</p>
   <button class="boton" onclick="guardarSeleccion()">Comenzar la travesía</button>
@@ -630,14 +625,6 @@ document.getElementById('nota-mapa').innerHTML = CANDADOS
   : 'Modo trabajo: candados desactivados.<br><span style="opacity:.6;font-size:14px">Las fechas siguen guardadas. Se reactivan poniendo CANDADOS = true.</span>';
 
 /* si no hay vídeo disponible, se muestra la foto */
-const v = document.getElementById('jenny');
-v.addEventListener('error', mostrarFoto, true);
-setTimeout(() => { if (!v.videoWidth && v.readyState === 0) mostrarFoto(); }, 1200);
-function mostrarFoto() {
-  v.hidden = true;
-  document.getElementById('jenny-foto').hidden = false;
-}
-
 /* La dedicatoria de cada una: cambia el texto de "dedicatoria" por lo que
    quieras que lea Jenny al voltear su tarjeta. Puede ir vacío ''. */
 const PERSONAS = [
