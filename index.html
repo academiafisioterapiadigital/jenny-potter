@@ -123,7 +123,7 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 .bufanda i:nth-child(even){background:var(--oro)}
 
 /* sala comun */
-.comun{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:34rem;
+.comun{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:34rem;
   -webkit-perspective:1000px;perspective:1000px}
 .retrato-bruja{position:relative;width:100%;background:none;border:0;
   cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -164,27 +164,49 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
 .retrato-bruja.novia > .cara{position:absolute;inset:0}
 .retrato-bruja.novia .dorso p{font-size:15.5px}
 
-/* hechizo Revelio */
-.retrato-bruja .toca{transition:opacity .2s ease}
-.retrato-bruja.conjurando .toca{opacity:0}
-.retrato-bruja .conjuro-capa{position:absolute;inset:0;z-index:3;border-radius:14px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  background:rgba(10,7,16,.72);opacity:0;pointer-events:none;transition:opacity .18s ease}
-.retrato-bruja.conjurando .conjuro-capa{opacity:1}
-.retrato-bruja .anillo{width:52px;height:52px;position:relative}
-.retrato-bruja .anillo svg{width:100%;height:100%;transform:rotate(-90deg)}
-.retrato-bruja .anillo circle{fill:none;stroke-width:3}
-.retrato-bruja .anillo .pista{stroke:rgba(217,180,90,.22)}
-.retrato-bruja .anillo .avance{stroke:var(--oro2);stroke-linecap:round;
-  stroke-dasharray:145;stroke-dashoffset:145;transition:stroke-dashoffset linear}
-.retrato-bruja .conjuro-texto{font-family:var(--caps);font-size:11px;letter-spacing:.1em;
-  color:var(--oro2);text-align:center;padding:0 14px;line-height:1.4}
-.retrato-bruja .destello{position:absolute;inset:0;z-index:4;border-radius:14px;
-  background:radial-gradient(circle,#fff,var(--oro2) 45%,transparent 75%);
-  opacity:0;pointer-events:none}
-.retrato-bruja.destellando .destello{animation:destelloflash .5s ease-out}
-@keyframes destelloflash{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){.retrato-bruja.destellando .destello{animation:none}}
+/* velo sobre las brujas aun no reveladas */
+.retrato-bruja.velada{cursor:default}
+.retrato-bruja.velada img{filter:blur(16px) saturate(40%) brightness(.55);transform:scale(1.08)}
+.retrato-bruja.velada .reserva{display:none !important}
+.retrato-bruja.velada .nombre{opacity:0}
+.retrato-bruja .velo-niebla{position:absolute;inset:0;z-index:2;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;
+  transition:opacity .9s ease;
+  background:radial-gradient(circle at 50% 40%,rgba(46,27,64,.35),rgba(10,7,16,.75) 75%)}
+.retrato-bruja.velada .velo-niebla{opacity:1}
+.retrato-bruja .velo-niebla svg{width:26px;height:26px;color:rgba(217,180,90,.55)}
+.retrato-bruja.revelada{transition:filter 1s ease}
+.retrato-bruja.revelada img{filter:none;transform:scale(1);
+  transition:filter 1s ease,transform 1s ease}
+.retrato-bruja.revelada .nombre{opacity:1;transition:opacity .7s ease .3s}
+.retrato-bruja.revelada .velo-niebla{transition:opacity .7s ease}
+
+/* bloque del conjuro global */
+.conjuro-global{grid-column:1 / -1;text-align:center;padding:18px 14px 6px;
+  border-top:1px solid rgba(217,180,90,.22);border-bottom:1px solid rgba(217,180,90,.22);
+  margin:4px 0 6px}
+.conjuro-global p{font-size:15px;line-height:1.5;opacity:.85;max-width:26rem;margin:0 auto 16px}
+.conjuro-global.oculto{display:none}
+.boton-conjuro{position:relative;font-family:var(--caps);font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;background:linear-gradient(180deg,#F0D79A,#D9B45A 55%,#B8912E);
+  color:#241708;border:1px solid #F3E2AE;border-radius:999px;padding:14px 26px;cursor:pointer;
+  box-shadow:0 8px 22px rgba(217,180,90,.35);-webkit-tap-highlight-color:transparent;
+  display:inline-flex;align-items:center;gap:10px}
+.boton-conjuro .anillo{width:22px;height:22px;flex:0 0 auto}
+.boton-conjuro .anillo svg{width:100%;height:100%;transform:rotate(-90deg)}
+.boton-conjuro .anillo circle{fill:none;stroke-width:3}
+.boton-conjuro .anillo .pista{stroke:rgba(36,23,8,.25)}
+.boton-conjuro .anillo .avance{stroke:#241708;stroke-linecap:round;
+  stroke-dasharray:60;stroke-dashoffset:60;transition:stroke-dashoffset linear}
+.conjuro-global.cargando .boton-conjuro span{opacity:.7}
+.conjuro-global.listo{opacity:0;max-height:0;padding:0;margin:0;border:0;overflow:hidden;
+  transition:opacity .5s ease,max-height .6s ease .3s,padding .6s ease .3s,margin .6s ease .3s}
+.destello-global{position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:16px;
+  background:radial-gradient(circle,#fff,var(--oro2) 40%,transparent 72%);opacity:0}
+.destello-global.disparo{animation:destelloflash 1s ease-out}
+@keyframes destelloflash{0%{opacity:0}25%{opacity:.85}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.destello-global.disparo{animation:none}}
+
 @media (max-width:480px){
   .comun{grid-template-columns:1fr;max-width:20rem}
   .retrato-bruja::before{padding-top:75%}
@@ -682,7 +704,7 @@ const PERSONAS = [
   { nombre: 'Aleida', archivo: 'aleida.png',
     dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
   { nombre: 'Cris', archivo: 'cris.png',
-    dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
+    dedicatoria: 'Es posible que ni te des cuenta de tu propio magnetismo, de en 2 minutos cualquiera quiere estar cerca tuyo y que haces cómoda cualquier conversación. Gracias por hacer todo tan fácil, flor.' },
   { nombre: 'Natalia', archivo: 'natalia.png',
     dedicatoria: 'Escribe aquí tu dedicatoria para Jenny.' },
   { nombre: 'Vero', archivo: 'vero.png',
@@ -706,96 +728,119 @@ const PERSONAS = [
 function pintarComun() {
   const cont = document.getElementById('comun');
   cont.innerHTML = '';
-  PERSONAS.forEach(p => {
+
+  const yaRevelado = (() => {
+    try { return localStorage.getItem('jenny-revelio-lanzado') === '1'; } catch (err) { return false; }
+  })();
+
+  const jenny = PERSONAS[0];
+  const resto = PERSONAS.slice(1);
+
+  /* --- Jenny, siempre visible --- */
+  const divJenny = document.createElement('div');
+  divJenny.className = 'retrato-bruja novia';
+  divJenny.innerHTML = '<div class="carta"><div class="cara">' +
+    '<div class="reserva">' + jenny.nombre.charAt(0) + '</div>' +
+    '<img src="' + jenny.archivo + '" alt="' + jenny.nombre + '" loading="lazy" ' +
+      'onload="this.previousElementSibling.style.display=\'none\'" ' +
+      'onerror="this.style.display=\'none\'">' +
+    '<div class="nombre">' + jenny.nombre + '</div>' +
+  '</div></div>';
+  cont.appendChild(divJenny);
+
+  /* --- El bloque del conjuro --- */
+  const bloque = document.createElement('div');
+  bloque.className = 'conjuro-global' + (yaRevelado ? ' oculto' : '');
+  bloque.innerHTML =
+    '<p>Ahora mismo no se ve a ninguna de tus compañeras brujas. Mantén pulsado el botón y ' +
+    'di «Revelio» en voz alta para desvelarlas.</p>' +
+    '<button class="boton-conjuro" type="button">' +
+      '<span class="anillo"><svg viewBox="0 0 26 26">' +
+        '<circle class="pista" cx="13" cy="13" r="9.5"/>' +
+        '<circle class="avance" cx="13" cy="13" r="9.5"/>' +
+      '</svg></span>' +
+      '<span>Lanzar Revelio</span>' +
+    '</button>' +
+    '<div class="destello-global"></div>';
+  cont.appendChild(bloque);
+
+  /* --- Las once, veladas hasta que se lance el hechizo --- */
+  const tarjetas = [];
+  resto.forEach(p => {
     const inicial = p.nombre.charAt(0);
     const div = document.createElement('div');
-    div.className = 'retrato-bruja' + (p.novia ? ' novia' : '');
-    const caraSuelta =
-      '<div class="reserva">' + inicial + '</div>' +
-      '<img src="' + p.archivo + '" alt="' + p.nombre + '" loading="lazy" ' +
-        'onload="this.previousElementSibling.style.display=\'none\'" ' +
-        'onerror="this.style.display=\'none\'">' +
-      '<div class="nombre">' + p.nombre + '</div>';
-
-    if (p.novia) {
-      /* Jenny no gira: sin el envoltorio de la carta (evita un fallo de
-         renderizado de Safari con backface-visibility en tarjetas que no giran) */
-      div.innerHTML = '<div class="cara">' + caraSuelta + '</div>';
-      cont.appendChild(div);
-      return;
-    }
-
-    div.setAttribute('role', 'button');
-    div.setAttribute('tabindex', '0');
-    div.setAttribute('aria-label', 'Mantén pulsado y di Revelio para ver la dedicatoria de ' + p.nombre);
+    div.className = 'retrato-bruja' + (yaRevelado ? ' revelada' : ' velada');
     div.innerHTML =
       '<div class="carta">' +
-        '<div class="cara">' + caraSuelta +
+        '<div class="cara">' +
+          '<div class="reserva">' + inicial + '</div>' +
+          '<img src="' + p.archivo + '" alt="' + p.nombre + '" loading="lazy" ' +
+            'onload="this.previousElementSibling.style.display=\'none\'" ' +
+            'onerror="this.style.display=\'none\'">' +
           '<span class="toca">↻</span>' +
-          '<div class="conjuro-capa">' +
-            '<div class="anillo"><svg viewBox="0 0 52 52">' +
-              '<circle class="pista" cx="26" cy="26" r="23"/>' +
-              '<circle class="avance" cx="26" cy="26" r="23"/>' +
-            '</svg></div>' +
-            '<p class="conjuro-texto">Di «Revelio»<br>en voz alta…</p>' +
-          '</div>' +
-          '<div class="destello"></div>' +
+          '<div class="nombre">' + p.nombre + '</div>' +
+          '<div class="velo-niebla"><svg viewBox="0 0 24 24" fill="currentColor">' +
+            '<path d="M12 1l3 7 8 .6-6 5 2 7.4-7-4-7 4 2-7.4-6-5 8-.6z"/></svg></div>' +
         '</div>' +
         '<div class="dorso">' +
           '<span class="quien">' + p.nombre + '</span>' +
           '<p>' + (p.dedicatoria || 'Aún sin dedicatoria.') + '</p>' +
         '</div>' +
       '</div>';
+    div.setAttribute('role', 'button');
+    div.setAttribute('tabindex', '0');
+    div.setAttribute('aria-label', 'Ver dedicatoria de ' + p.nombre);
+    const voltear = () => { if (!div.classList.contains('velada')) div.classList.toggle('volteada'); };
+    div.addEventListener('click', voltear);
+    div.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); voltear(); }
+    });
+    cont.appendChild(div);
+    tarjetas.push(div);
+  });
 
-    const DURACION = 1800; // ms que hay que mantener pulsado
+  /* --- El conjuro: mantener pulsado el boton carga el anillo --- */
+  if (!yaRevelado) {
+    const boton = bloque.querySelector('.boton-conjuro');
+    const anillo = bloque.querySelector('.anillo .avance');
+    const DURACION = 1800;
     let temporizador = null, inicio = 0;
-    const anillo = div.querySelector('.avance');
 
-    function empezarConjuro(ev) {
-      if (div.classList.contains('volteada')) return; // ya revelada, un toque normal la vuelve a girar
+    function empezar(ev) {
       ev.preventDefault();
-      div.classList.add('conjurando');
+      bloque.classList.add('cargando');
       inicio = performance.now();
       const paso = () => {
-        const transcurrido = performance.now() - inicio;
-        const fraccion = Math.min(1, transcurrido / DURACION);
-        anillo.style.strokeDashoffset = String(145 * (1 - fraccion));
+        const fraccion = Math.min(1, (performance.now() - inicio) / DURACION);
+        anillo.style.strokeDashoffset = String(60 * (1 - fraccion));
         if (fraccion < 1) { temporizador = requestAnimationFrame(paso); }
-        else { completarConjuro(); }
+        else { revelarTodas(); }
       };
       temporizador = requestAnimationFrame(paso);
     }
-
-    function cancelarConjuro() {
+    function cancelar() {
       if (temporizador) cancelAnimationFrame(temporizador);
-      div.classList.remove('conjurando');
-      anillo.style.strokeDashoffset = '145';
+      bloque.classList.remove('cargando');
+      anillo.style.strokeDashoffset = '60';
+    }
+    function revelarTodas() {
+      bloque.classList.remove('cargando');
+      bloque.querySelector('.destello-global').classList.add('disparo');
+      tarjetas.forEach((div, i) => {
+        setTimeout(() => {
+          div.classList.remove('velada');
+          div.classList.add('revelada');
+        }, i * 110);
+      });
+      setTimeout(() => bloque.classList.add('listo'), 900);
+      try { localStorage.setItem('jenny-revelio-lanzado', '1'); } catch (err) {}
     }
 
-    function completarConjuro() {
-      div.classList.remove('conjurando');
-      div.classList.add('destellando');
-      div.classList.add('volteada');
-      setTimeout(() => div.classList.remove('destellando'), 500);
-    }
-
-    div.addEventListener('pointerdown', empezarConjuro);
-    div.addEventListener('pointerup', cancelarConjuro);
-    div.addEventListener('pointerleave', cancelarConjuro);
-    div.addEventListener('pointercancel', cancelarConjuro);
-    div.addEventListener('click', () => {
-      // si ya esta revelada, un toque simple la vuelve a cerrar
-      if (div.classList.contains('volteada')) div.classList.remove('volteada');
-    });
-    div.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        ev.preventDefault();
-        if (div.classList.contains('volteada')) div.classList.remove('volteada');
-        else completarConjuro();
-      }
-    });
-    cont.appendChild(div);
-  });
+    boton.addEventListener('pointerdown', empezar);
+    boton.addEventListener('pointerup', cancelar);
+    boton.addEventListener('pointerleave', cancelar);
+    boton.addEventListener('pointercancel', cancelar);
+  }
 }
 
 pintarMapa();
