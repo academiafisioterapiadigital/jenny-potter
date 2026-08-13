@@ -35,11 +35,11 @@ body{min-height:100dvh;overflow-x:hidden}
 
 h1{font-family:var(--display);font-size:clamp(28px,8vw,42px);line-height:1.14;margin:0;
   color:var(--oro2);text-shadow:0 0 26px rgba(217,180,90,.35)}
-h2{font-family:var(--display);font-size:clamp(22px,6vw,30px);margin:0 0 10px;color:var(--oro2)}
-.epigrafe{font-family:var(--caps);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--oro);opacity:.85;margin:0 0 14px}
-p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
-.tenue{opacity:.75;font-size:15.5px}
+h2{font-family:var(--display);font-size:clamp(25px,6.8vw,33px);line-height:1.15;margin:0 0 12px;color:var(--oro2)}
+.epigrafe{font-family:var(--caps);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--oro2);opacity:.9;margin:0 0 14px;font-weight:600}
+p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
+.tenue{opacity:.8;font-size:16.5px;line-height:1.55}
 
 .boton{font-family:var(--caps);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
   background:linear-gradient(180deg,var(--granate2),var(--granate));color:#F7E9C6;
@@ -59,19 +59,19 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
   box-shadow:0 14px 34px rgba(0,0,0,.45)}
 .bocadillo::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%);
   border:11px solid transparent;border-bottom-color:rgba(243,231,204,.96);border-top:0}
-.bocadillo p{margin:0;font-size:17px;font-style:italic}
+.bocadillo p{margin:0;font-size:18px;line-height:1.5;font-style:italic}
 .bocadillo p + p{margin-top:10px}
 
 /* preguntas */
 .pregunta{width:100%;max-width:34rem}
 .contador{font-family:var(--caps);font-size:11px;letter-spacing:.22em;color:var(--oro);
   opacity:.8;margin-bottom:10px}
-.enunciado{font-family:var(--display);font-size:clamp(19px,5.2vw,25px);line-height:1.3;
-  color:var(--oro2);margin:0 0 20px}
+.enunciado{font-family:var(--display);font-size:clamp(21px,5.8vw,28px);line-height:1.28;
+  color:var(--oro2);margin:0 0 22px}
 .opciones{display:flex;flex-direction:column;gap:11px}
-.opcion{font-family:var(--body);font-size:16.5px;line-height:1.4;text-align:left;
+.opcion{font-family:var(--body);font-size:17.5px;line-height:1.42;text-align:left;
   background:rgba(243,231,204,.07);color:var(--pergamino);border:1px solid rgba(217,180,90,.42);
-  border-radius:13px;padding:15px 17px;cursor:pointer;transition:all .16s ease}
+  border-radius:13px;padding:16px 18px;cursor:pointer;transition:all .16s ease}
 .opcion:hover{background:rgba(217,180,90,.16);border-color:var(--oro)}
 .opcion:focus-visible{outline:2px solid var(--oro2);outline-offset:3px}
 .opcion.elegida{background:rgba(168,32,47,.35);border-color:var(--oro2)}
@@ -99,6 +99,22 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
 .bufanda i:nth-child(odd){background:var(--granate)}
 .bufanda i:nth-child(even){background:var(--oro)}
 
+/* sala comun */
+.comun{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:34rem}
+.retrato-bruja{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:3/4;
+  background:linear-gradient(160deg,#3A1620,#1E0C13);border:1px solid rgba(217,180,90,.35)}
+.retrato-bruja img{width:100%;height:100%;object-fit:cover;display:block}
+.retrato-bruja .reserva{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:34px;color:rgba(217,180,90,.6)}
+.retrato-bruja .nombre{position:absolute;left:0;right:0;bottom:0;padding:8px 9px 7px;
+  background:linear-gradient(180deg,transparent,rgba(10,7,16,.92));
+  font-family:var(--caps);font-size:12.5px;letter-spacing:.06em;color:#F3E7CB;text-align:center}
+.retrato-bruja.novia{grid-column:span 2;aspect-ratio:16/10;border-color:var(--oro)}
+.retrato-bruja.novia .nombre{font-size:15px;letter-spacing:.1em}
+.retrato-bruja.novia::before{content:"✦ La novia";position:absolute;top:9px;left:9px;z-index:1;
+  font-family:var(--caps);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:#2B2118;background:var(--oro2);border-radius:999px;padding:3px 10px}
+
 /* mapa de capitulos */
 .mapa{width:100%;max-width:36rem}
 .tarjeta{display:flex;gap:14px;align-items:center;text-align:left;width:100%;
@@ -109,10 +125,10 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
 .tarjeta:focus-visible{outline:2px solid var(--oro2);outline-offset:3px}
 .tarjeta img{width:52px;height:52px;object-fit:contain;flex:0 0 auto}
 .tarjeta .info{flex:1}
-.tarjeta .num{font-family:var(--caps);font-size:10.5px;letter-spacing:.2em;color:var(--oro);
-  text-transform:uppercase}
-.tarjeta .tit{font-family:var(--display);font-size:17px;line-height:1.2;color:var(--oro2);margin:3px 0}
-.tarjeta .dia{font-size:14px;opacity:.72}
+.tarjeta .num{font-family:var(--caps);font-size:11.5px;letter-spacing:.16em;color:var(--oro);
+  text-transform:uppercase;font-weight:600}
+.tarjeta .tit{font-family:var(--display);font-size:19px;line-height:1.22;color:var(--oro2);margin:4px 0}
+.tarjeta .dia{font-size:15px;opacity:.78;font-weight:500}
 .candado{font-size:19px;opacity:.55}
 .tarjeta.bloqueada{opacity:.62}
 .tarjeta .cuenta{font-family:var(--caps);font-size:13px;color:var(--oro2);letter-spacing:.04em}
@@ -129,18 +145,18 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
   color:var(--oro);opacity:.85;margin-bottom:10px}
 .conjuro{font-family:var(--display);font-size:clamp(30px,9vw,46px);color:var(--oro2);margin:0;
   line-height:1.1;text-shadow:0 0 30px rgba(217,180,90,.4)}
-.tipo{font-family:var(--caps);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--oro);opacity:.8;margin:8px 0 0}
+.tipo{font-family:var(--caps);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--oro);opacity:.85;margin:9px 0 0;font-weight:600}
 .trazo{width:100%;max-width:330px;margin:18px auto 4px;display:block}
 .trazo .linea{fill:none;stroke:var(--oro2);stroke-width:3;stroke-linecap:round;
   filter:drop-shadow(0 0 6px rgba(240,215,154,.75))}
 .trazo .guia{fill:none;stroke:var(--oro);stroke-width:1.4;stroke-dasharray:2 7;opacity:.35}
-.pie-trazo{font-size:14px;opacity:.6;margin:0 0 16px}
+.pie-trazo{font-size:15px;opacity:.65;margin:0 0 18px}
 .efecto{background:rgba(243,231,204,.07);border:1px solid rgba(217,180,90,.35);border-radius:14px;
   padding:16px 18px;margin:0 0 16px}
-.efecto p{margin:0;font-size:16.5px}
-.fonetica{font-family:var(--caps);letter-spacing:.12em;font-size:15px;color:var(--oro2);
-  margin:10px 0 0;display:block}
+.efecto p{margin:0;font-size:17.5px;line-height:1.55}
+.fonetica{font-family:var(--caps);letter-spacing:.1em;font-size:16px;color:var(--oro2);
+  margin:12px 0 0;display:block;font-weight:600}
 .audio{display:inline-flex;align-items:center;gap:11px;font-family:var(--caps);font-size:12.5px;
   letter-spacing:.14em;text-transform:uppercase;background:rgba(217,180,90,.12);
   color:var(--oro2);border:1px solid var(--oro);border-radius:999px;padding:13px 24px;
@@ -165,21 +181,23 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
   rgba(243,231,204,.9) 0%,rgba(243,231,204,.8) 40%,rgba(243,231,204,.9) 100%)}
 .capitulo .dentro{position:relative;padding:26px 22px 28px}
 .capitulo .epigrafe{color:#8A6224;opacity:1}
-.capitulo h2{color:var(--tinta);font-size:clamp(21px,5.6vw,27px);margin-bottom:14px}
+.capitulo h2{color:var(--tinta);font-size:clamp(23px,6.2vw,30px);line-height:1.18;margin-bottom:16px}
 .horario{list-style:none;margin:0 0 18px;padding:0}
-.horario li{display:grid;grid-template-columns:62px 1fr;gap:10px;padding:7px 0;
+.horario li{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:baseline;padding:9px 0;
   border-bottom:1px dotted rgba(107,85,53,.4)}
-.horario b{font-family:var(--caps);font-size:14px;color:var(--granate)}
-.horario span{font-size:16px;line-height:1.42}
-.capitulo p{font-size:16px;color:var(--tinta)}
+.horario b{font-family:var(--caps);font-size:13.5px;font-weight:700;color:#fff;
+  background:var(--granate);border-radius:999px;padding:3px 0;text-align:center;
+  display:inline-block;width:100%;letter-spacing:.01em}
+.horario span{font-size:17.5px;line-height:1.48;font-weight:500}
+.capitulo p{font-size:17.5px;line-height:1.55;color:var(--tinta)}
 .reto{background:rgba(255,255,255,.6);border:1px solid rgba(168,128,31,.6);border-radius:11px;
   padding:13px 15px;margin-bottom:13px;display:flex;gap:13px;align-items:center}
 .reto img{width:56px;flex:0 0 auto}
-.reto b{font-family:var(--caps);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--granate);display:block;margin-bottom:4px}
-.reto div{font-size:15.5px;line-height:1.5}
-.cita{font-style:italic;text-align:center;color:#6B5535;font-size:15px;
-  border-top:1px solid rgba(107,85,53,.35);padding-top:13px;margin:18px 0 0}
+.reto b{font-family:var(--caps);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--granate);display:block;margin-bottom:5px;font-weight:700}
+.reto div{font-size:17px;line-height:1.52}
+.cita{font-style:italic;text-align:center;color:#5A4632;font-size:16.5px;line-height:1.5;
+  border-top:1px solid rgba(107,85,53,.35);padding-top:15px;margin:20px 0 0}
 .volver{margin-top:20px}
 </style>
 
@@ -248,6 +266,15 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
   <button class="boton" onclick="guardarSeleccion()">Comenzar la travesía</button>
 </section>
 
+<!-- ===== SALA COMÚN ===== -->
+<section class="escena" id="e-comun">
+  <p class="epigrafe">Torre de Gryffindor</p>
+  <h2>La Sala Común</h2>
+  <p class="tenue" style="margin-bottom:22px">Las brujas que hacen esta travesía posible.</p>
+  <div class="comun" id="comun"></div>
+  <button class="boton boton--fantasma" style="margin-top:22px" onclick="ir('e-mapa')">Volver a la travesía</button>
+</section>
+
 <!-- ===== MAPA ===== -->
 <section class="escena" id="e-mapa">
   <p class="epigrafe">La travesía</p>
@@ -255,6 +282,7 @@ p{font-size:17px;line-height:1.6;margin:0 0 14px;max-width:34rem}
   <p class="tenue" style="margin-bottom:22px" id="nota-mapa"></p>
   <div class="mapa" id="mapa"></div>
   <p class="aviso" id="aviso" role="status"></p>
+  <button class="boton boton--fantasma" style="margin-top:6px" onclick="ir('e-comun')">Ver la Sala Común</button>
 </section>
 
 <!-- ===== PRUEBA DE MAGIA ===== -->
@@ -484,7 +512,7 @@ setInterval(() => {
     else el.textContent = restante(CAPS[i].abre);
   });
   if (hayQueRepintar) pintarMapa();
-}, 1000);
+  }, 1000);
 
 function abrirPrueba(i) {
   const c = CAPS[i], e = c.hechizo;
@@ -579,5 +607,38 @@ function mostrarFoto() {
   document.getElementById('jenny-foto').hidden = false;
 }
 
+const PERSONAS = [
+  { nombre: 'Jenny', archivo: 'jenny.jpg', novia: true },
+  { nombre: 'Aleida', archivo: 'aleida.png' },
+  { nombre: 'Cris', archivo: 'cris.png' },
+  { nombre: 'Natalia', archivo: 'natalia.png' },
+  { nombre: 'Vero', archivo: 'vero.png' },
+  { nombre: 'Pilu', archivo: 'pilu.png' },
+  { nombre: 'Debora', archivo: 'debora.png' },
+  { nombre: 'Irene', archivo: 'irene.png' },
+  { nombre: 'Vicky', archivo: 'vicky.png' },
+  { nombre: 'Mimi', archivo: 'mimi.png' },
+  { nombre: 'Omaira', archivo: 'omaira.png' },
+  { nombre: 'Carmela', archivo: 'carmela.png' },
+];
+
+function pintarComun() {
+  const cont = document.getElementById('comun');
+  cont.innerHTML = '';
+  PERSONAS.forEach(p => {
+    const inicial = p.nombre.charAt(0);
+    const div = document.createElement('div');
+    div.className = 'retrato-bruja' + (p.novia ? ' novia' : '');
+    div.innerHTML =
+      '<div class="reserva">' + inicial + '</div>' +
+      '<img src="' + p.archivo + '" alt="' + p.nombre + '" loading="lazy" ' +
+        'onload="this.previousElementSibling.style.display=\'none\'" ' +
+        'onerror="this.style.display=\'none\'">' +
+      '<div class="nombre">' + p.nombre + '</div>';
+    cont.appendChild(div);
+  });
+}
+
 pintarMapa();
+pintarComun();
 </script>
