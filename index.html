@@ -12,7 +12,12 @@
   --body:"EB Garamond",Georgia,serif;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:var(--noche);color:var(--pergamino);font-family:var(--body)}
+html,body{margin:0;padding:0;color:var(--pergamino);font-family:var(--body);
+  background:
+    radial-gradient(ellipse at 50% -20%,#332B62 0%,transparent 55%),
+    radial-gradient(ellipse at 10% 100%,#221B45 0%,transparent 45%),
+    radial-gradient(ellipse at 90% 80%,#2A1B33 0%,transparent 40%),
+    var(--noche)}
 body{min-height:100dvh;overflow-x:hidden}
 
 /* cielo */
@@ -238,6 +243,7 @@ p{font-size:18px;line-height:1.62;margin:0 0 14px;max-width:34rem}
   background:var(--granate);border-radius:999px;padding:3px 0;text-align:center;
   display:inline-block;width:100%;letter-spacing:.01em}
 .horario span{font-size:17.5px;line-height:1.48;font-weight:500}
+
 .capitulo p{font-size:17.5px;line-height:1.55;color:var(--tinta)}
 .reto{background:rgba(255,255,255,.6);border:1px solid rgba(168,128,31,.6);border-radius:11px;
   padding:13px 15px;margin-bottom:13px;display:flex;gap:13px;align-items:center}
@@ -494,7 +500,7 @@ const CAPS = [
       trazo:'M150 34 A 52 52 0 1 0 152 34 M186 118 L 258 56',
       pie:'Círculo completo y salida en diagonal.' },
     horas: [['11:00','Salida del alojamiento con maletas'],
-            ['14:00','Comida de clausura'], ['19:00','Camino al aeropuerto'],
+            ['14:00','Comida de clausura en Coppola &amp; Solomonk'], ['19:00','Camino al aeropuerto'],
             ['21:10','Vuelo a Las Palmas'], ['23:35','Llegada']],
     nota: '',
     retos: [['El juramento inviolable','Antes del postre, cada bruja del escuadrón dedicará unas palabras, un deseo o una promesa de lealtad a Jenny para su nueva vida de casada.','FINAL_lechuza.png']],
